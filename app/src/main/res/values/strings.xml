@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ScratchCardApp</string>
+
+    <string name="card_home__scratch_card">Scratch screen</string>
+    <string name="card_home__activation_card">Activation screen</string>
+    <string name="card_home__scratch_card_state">Scratch card state</string>
+
+    <string name="scratch_card__scratch_Next_part">Scratch card</string>
+    <string name="scratch_card__card_number_header">Card number:</string>
+
+    <string name="activation_card__activate_card">Activate card</string>
+    <string name="activation_card__card_state">Card state:</string>
+    <string name="activation_card__activation_success">Card activation success</string>
+    <string name="activation_card__activation_error">Card activation failed</string>
+
+</resources>
