@@ -1,4 +1,5 @@
-package co.init.scratchcardapp
+package co.init.scratchcardapp.hilt
+
 
 import co.init.scratchcardapp.features.card_activation.domain.ScratchedCardService
 import com.google.gson.Gson
