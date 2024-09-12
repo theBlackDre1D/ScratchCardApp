@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import co.init.base.BaseFragment
 import co.init.common.extensions.onClickDebounce
 import co.init.scratchcardapp.MainActivityVM
-import co.init.scratchcardapp.data.ScratchCardState
 import co.init.scratchcardapp.databinding.ScratchCardFragmentBinding
 
 class ScratchCardFragment : BaseFragment<ScratchCardFragmentBinding>() {
@@ -30,6 +29,11 @@ class ScratchCardFragment : BaseFragment<ScratchCardFragmentBinding>() {
         initObservers()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        sharedActivityViewModel.cancelScratch()
+    }
+
     private fun setupButton() {
         binding.scratchCardBtn.onClickDebounce {
             sharedActivityViewModel.scratchCard()
@@ -38,8 +42,11 @@ class ScratchCardFragment : BaseFragment<ScratchCardFragmentBinding>() {
 
     private fun initObservers() {
         sharedActivityViewModel.scratchCardLiveData.observe(viewLifecycleOwner) { card ->
-            binding.progress.isVisible = card.cardState == ScratchCardState.GETS_SCRATCH
             binding.cardNumberValue.text = card.cardNumber
+        }
+
+        sharedActivityViewModel.scratchCardLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progress.isVisible = isLoading
         }
     }
 }

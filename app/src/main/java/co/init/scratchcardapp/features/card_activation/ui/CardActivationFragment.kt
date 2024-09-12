@@ -10,6 +10,8 @@ import co.init.base.BaseFragment
 import co.init.common.extensions.onClickDebounce
 import co.init.scratchcardapp.MainActivityVM
 import co.init.scratchcardapp.R
+import co.init.scratchcardapp.data.throwables.CanNotActivateCardThrowable
+import co.init.scratchcardapp.data.throwables.FailedActivationThrowable
 import co.init.scratchcardapp.databinding.CardActivationFragmentBinding
 
 class CardActivationFragment : BaseFragment<CardActivationFragmentBinding>() {
@@ -44,9 +46,15 @@ class CardActivationFragment : BaseFragment<CardActivationFragmentBinding>() {
                         Toast.makeText(nonNullContext, R.string.activation_card__activation_success, Toast.LENGTH_SHORT).show()
                     }
                 },
-                onFailure = {
+                onFailure = { throwable ->
                     context?.let { nonNullContext ->
-                        Toast.makeText(nonNullContext, R.string.activation_card__activation_error, Toast.LENGTH_SHORT).show()
+                        val errorTextResId = when (throwable) {
+                            is CanNotActivateCardThrowable -> R.string.activation_card__activation_error_card_not_ready_to_activate
+                            is FailedActivationThrowable -> R.string.activation_card__activation_error
+                            else -> R.string.common__general_error
+                        }
+
+                        Toast.makeText(nonNullContext, errorTextResId, Toast.LENGTH_SHORT).show()
                     }
                 }
             )
